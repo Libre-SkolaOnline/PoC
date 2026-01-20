@@ -21,8 +21,7 @@ class SkolaOnlineAuth:
     def login(self):
         username, password = self._get_credentials()
         self.username = username
-        url = f"{self.
-            password = gbase_url}/connect/token"
+        url = f"{self.base_url}/connect/token"
         payload = {
             "grant_type": "password",
             "client_id": CLIENT_ID,
