@@ -13,7 +13,7 @@ class SkolaOnlineAuth:
         self.username = None
 
     def _get_credentials(self):
-        print("\n--- Přihlášení do Škola Online API ---")
+        print("\nPřihlášení do Škola Online API")
         username = input("Uživatelské jméno: ").strip()
         password = getpass.getpass("Heslo: ").strip()
         return username, password
@@ -30,7 +30,7 @@ class SkolaOnlineAuth:
             "scope": "openid offline_access profile sol_api"
         }
 
-        print(f"[*] Přihlašuji se jako '{username}'...")
+        print(f"Přihlašuji se jako '{username}'")
         try:
             response = self.session.post(url, data=payload)
             response.raise_for_status()
@@ -40,21 +40,21 @@ class SkolaOnlineAuth:
                 "Authorization": f"Bearer {self.token}",
                 "Content-Type": "application/json"
             })
-            print("[+] Přihlášení úspěšné.\n")
+            print("Přihlášení úspěšné.\n")
             return True
 
         except requests.exceptions.HTTPError as err:
-            print(f"[-] Chyba přihlášení: {err}")
+            print(f"Chyba přihlášení: {err}")
             if response.content:
-                print(f"    Detail: {response.text}")
+                print(f"Detail: {response.text}")
             return False
         except Exception as e:
-            print(f"[-] Neočekávaná chyba: {e}")
+            print(f"Neočekávaná chyba: {e}")
             return False
 
     def get(self, endpoint, params=None):
         if not self.token:
-            print("[-] Nejsi přihlášen. Volám login()...")
+            print("Nejsi přihlášen. Volám login()")
             if not self.login():
                 return None
         url = f"{self.base_url}{endpoint}"
