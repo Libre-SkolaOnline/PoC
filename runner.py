@@ -4,6 +4,15 @@ import subprocess
 
 DIR = "modules"
 
+def install_dependencies():
+    dependencies = ["requests"]
+    for package in dependencies:
+        try:
+            __import__(package)
+        except ImportError:
+            print(f"Instaluji chybějící balíček: {package}...")
+            subprocess.check_call([sys.executable, "-m", "pip", "install", "--break-system-packages", package])
+
 def main():
     while True:
 
@@ -27,4 +36,5 @@ def main():
             input("\nStiskni Enter...")
 
 if __name__ == "__main__":
+    install_dependencies()
     main()
